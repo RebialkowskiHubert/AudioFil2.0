@@ -5,7 +5,7 @@ using System.Windows;
 using System.Windows.Input;
 using Tulpep.NotificationWindow;
 
-namespace AudioFil.ViewModel
+namespace AudioFil
 {
     public sealed class RadioViewModel : PlayerViewModel
     {

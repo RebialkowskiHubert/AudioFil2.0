@@ -1,7 +1,7 @@
 ﻿using AudioFil.Helpers;
 using System.Collections.ObjectModel;
 
-namespace AudioFil.ViewModel
+namespace AudioFil
 {
     public class DownloaderViewModel : BindableBase
     {

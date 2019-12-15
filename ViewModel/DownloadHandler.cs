@@ -8,7 +8,7 @@ using YoutubeExplode;
 using YoutubeExplode.Models;
 using YoutubeExplode.Models.MediaStreams;
 
-namespace AudioFil.ViewModel
+namespace AudioFil
 {
     public class DownloadHandler : BindableBase
     {

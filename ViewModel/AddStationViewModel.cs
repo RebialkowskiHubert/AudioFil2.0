@@ -2,7 +2,7 @@
 using System;
 using System.Windows;
 
-namespace AudioFil.ViewModel
+namespace AudioFil
 {
     public class AddStationViewModel : BindableBase
     {
