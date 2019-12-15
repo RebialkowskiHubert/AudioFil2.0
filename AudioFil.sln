@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29609.76
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AudioFil", "AudioFil.csproj", "{CA8797BB-0C58-4575-A413-083ECAD96D21}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CA8797BB-0C58-4575-A413-083ECAD96D21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA8797BB-0C58-4575-A413-083ECAD96D21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA8797BB-0C58-4575-A413-083ECAD96D21}.Debug|x86.ActiveCfg = Debug|x86
+		{CA8797BB-0C58-4575-A413-083ECAD96D21}.Debug|x86.Build.0 = Debug|x86
+		{CA8797BB-0C58-4575-A413-083ECAD96D21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA8797BB-0C58-4575-A413-083ECAD96D21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA8797BB-0C58-4575-A413-083ECAD96D21}.Release|x86.ActiveCfg = Release|x86
+		{CA8797BB-0C58-4575-A413-083ECAD96D21}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C17F8AEB-6F53-475B-A5CC-F90DC4453605}
+	EndGlobalSection
+EndGlobal
