@@ -15,8 +15,9 @@ namespace AudioFil.Helpers
         private readonly string pathSongs = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) + "\\" + "Listy odtwarzania\\MUZA.wpl";
 
 
-        public ObservableCollection<Radio> LoadRadios(ObservableCollection<Radio> radios)
+        public ObservableCollection<BaseSource> LoadRadios()
         {
+            ObservableCollection<BaseSource> radios;
             doc = new XmlDocument();
             try
             {
@@ -28,13 +29,13 @@ namespace AudioFil.Helpers
 
                 doc.Load(pathRadio);
                 int stacje = doc.GetElementsByTagName("Stacja").Count;
-                radios = new ObservableCollection<Radio>();
+                radios = new ObservableCollection<BaseSource>();
 
                 int i;
                 for (i = 0; i < stacje; i++)
                 {
                     XmlNode stacja = doc.GetElementsByTagName("Stacja").Item(i);
-                    var id = Int32.Parse(stacja.FirstChild.InnerText);
+                    var id = int.Parse(stacja.FirstChild.InnerText);
                     var nazwa = stacja.LastChild.PreviousSibling.InnerText;
                     var url = new Uri(stacja.LastChild.InnerText);
                     radios.Add(new Radio(id, nazwa, url));
