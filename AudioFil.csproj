@@ -6,6 +6,7 @@
     <UseWPF>true</UseWPF>
     <StartupObject>AudioFil.App</StartupObject>
     <Platforms>AnyCPU;x86</Platforms>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>

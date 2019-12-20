@@ -10,14 +10,6 @@ namespace AudioFil
 {
     public class PlayerViewModel : BindableBase
     {
-        protected VlcMediaPlayer player;
-
-        protected XMLHandling xml;
-
-        protected LowLevelKeyboardListener keyListener;
-
-        protected bool play = false;
-
         private string title = "Brak tytułu";
         public string Title
         {
@@ -54,24 +46,43 @@ namespace AudioFil
             get => selectedElement;
             set
             {
+                if (selectedElement != null)
+                    selectedElement.OnCurrentSongChanged -= OnSongChange;
+
                 SetProperty(ref selectedElement, value, nameof(SelectedElement));
-                OnSelectedElementChange(value);
+                OnSelectedElementChange(selectedElement, value);
             }
+        }
+
+        private string playButtonContent;
+        public string PlayButtonContent
+        {
+            get => playButtonContent;
+            set => SetProperty(ref playButtonContent, value, nameof(PlayButtonContent));
         }
 
 
         public RelayCommand PlayCommand { get; set; }
+        public RelayCommand PlayPauseCommand { get; set; }
         public RelayCommand StopCommand { get; set; }
         public RelayCommand NextCommand { get; set; }
         public RelayCommand PreviousCommand { get; set; }
+
+        protected VlcMediaPlayer player;
+        protected XMLHandling xml;
+        protected LowLevelKeyboardListener keyListener;
+        protected bool play = false;
 
 
         public PlayerViewModel()
         {
             PlayCommand = new RelayCommand(Play);
+            PlayPauseCommand = new RelayCommand(PlayPause);
             StopCommand = new RelayCommand(Stop);
             NextCommand = new RelayCommand(Next);
             PreviousCommand = new RelayCommand(Previous);
+
+            PlayButtonContent = "Play";
 
             InitPlayer();
         }
@@ -80,17 +91,23 @@ namespace AudioFil
         {
             if (SelectedElement == null)
             {
-                if (Elements != null && Elements[0] != null)
-                    SelectedElement = (Radio)Elements[0];
-                else
-                    return;
+                return;
             }
 
             player.SetMedia(SelectedElement.Url);
-
             player.Play();
 
+            play = true;
+            PlayButtonContent = "Pause";
+
             SelectedElement.OnCurrentSongChanged += OnSongChange;
+        }
+
+        protected virtual void Pause()
+        {
+            player.Pause();
+            play = false;
+            PlayButtonContent = "Play";
         }
 
         protected virtual void Stop()
@@ -101,17 +118,25 @@ namespace AudioFil
 
         protected virtual void Next()
         {
-           
+            int index = Elements.IndexOf(SelectedElement) + 1;
+
+            if (index < Elements.Count)
+                SelectedElement = Elements[index];
         }
 
         protected virtual void Previous()
         {
-            
+            int index = Elements.IndexOf(SelectedElement) - 1;
+
+            if (index >= 0)
+                SelectedElement = (Radio)Elements[index];
+            else
+                SelectedElement = (Radio)Elements[Elements.Count - 1];
         }
 
-        protected virtual void OnSelectedElementChange(BaseSource baseSource)
+        protected virtual void OnSelectedElementChange(BaseSource oldValue, BaseSource newValue)
         {
-
+            
         }
 
         protected virtual void OnSongChange(object sender, CurrentSongEventArgs e)
@@ -119,6 +144,19 @@ namespace AudioFil
 
         }
 
+        protected virtual bool IsSelected()
+        {
+            return SelectedElement != null;
+        }
+
+
+        private void PlayPause()
+        {
+            if (play)
+                Pause();
+            else
+                Play();
+        }
         private void InitPlayer()
         {
             try

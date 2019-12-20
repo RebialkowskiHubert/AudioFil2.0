@@ -9,5 +9,7 @@
         WindowStartupLocation="CenterScreen" WindowStyle="None" Foreground="LightSteelBlue"
         MouseDown="Window_MouseDown">
 
-    <local:PlayerView/>
+    <Grid Background="Black">
+        <local:RadioView/>
+    </Grid>
 </Window>

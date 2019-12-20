@@ -26,32 +26,20 @@ namespace AudioFil
             InitRadioListener();
         }
 
-        protected override void Next()
+        protected override void Pause()
         {
-            int index = Elements.IndexOf(SelectedElement) + 1;
-
-            if (index < Elements.Count)
-                SelectedElement = Elements[index];
+            base.Pause();
+            player.Stop();
         }
 
-        protected override void Previous()
+        protected override void OnSelectedElementChange(BaseSource oldValue, BaseSource newValue)
         {
-            int index = Elements.IndexOf(SelectedElement) - 1;
-
-            if (index >= 0)
-                SelectedElement = (Radio)Elements[index];
-            else
-                SelectedElement = (Radio)Elements[Elements.Count - 1];
-        }
-
-        protected override void OnSelectedElementChange(BaseSource value)
-        {
-            if (value != null)
+            if (newValue != null)
             {
-                SelectedElement.OnCurrentSongChanged -= OnSongChange;
                 Play();
 
-                Title = SelectedElement.CurrentSong.Artist + " - " + SelectedElement.CurrentSong.Title;
+                if(SelectedElement.CurrentSong != null)
+                    Title = SelectedElement.CurrentSong.Artist + " - " + SelectedElement.CurrentSong.Title;
             }
 
             DeleteCommand.RaiseCanExecuteChanged();
@@ -90,11 +78,6 @@ namespace AudioFil
                     });
                 };
             }
-        }
-
-        private bool IsSelected()
-        {
-            return SelectedElement != null;
         }
 
         private void Add(Radio r = null)

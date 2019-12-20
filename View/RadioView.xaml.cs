@@ -10,6 +10,16 @@ namespace AudioFil
         public RadioView()
         {
             InitializeComponent();
+
+            InitPlayer();
+        }
+
+        private void InitPlayer()
+        {
+            PlayerView player = new PlayerView();
+            player.DataContext = DataContext;
+
+            GridPlayer.Children.Add(player);
         }
     }
 }

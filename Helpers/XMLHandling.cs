@@ -28,16 +28,16 @@ namespace AudioFil.Helpers
                     CreateSongsPlaylistFile();
 
                 doc.Load(pathRadio);
-                int stacje = doc.GetElementsByTagName("Stacja").Count;
+                int stations = doc.GetElementsByTagName("Stacja").Count;
                 radios = new ObservableCollection<BaseSource>();
 
                 int i;
-                for (i = 0; i < stacje; i++)
+                for (i = 0; i < stations; i++)
                 {
-                    XmlNode stacja = doc.GetElementsByTagName("Stacja").Item(i);
-                    var id = int.Parse(stacja.FirstChild.InnerText);
-                    var nazwa = stacja.LastChild.PreviousSibling.InnerText;
-                    var url = new Uri(stacja.LastChild.InnerText);
+                    XmlNode station = doc.GetElementsByTagName("Stacja").Item(i);
+                    var id = int.Parse(station.FirstChild.InnerText);
+                    var nazwa = station.LastChild.PreviousSibling.InnerText;
+                    var url = new Uri(station.LastChild.InnerText);
                     radios.Add(new Radio(id, nazwa, url));
                 }
 
@@ -59,18 +59,18 @@ namespace AudioFil.Helpers
                 int count = (doc.GetElementsByTagName("Stacja").Count) + 1;
 
                 XmlNode root = doc.SelectSingleNode("AudioFil");
-                XmlNode stacja = doc.CreateNode(XmlNodeType.Element, "Stacja", null);
+                XmlNode station = doc.CreateNode(XmlNodeType.Element, "Stacja", null);
                 XmlNode id = doc.CreateNode(XmlNodeType.Element, "Id", null);
                 id.InnerText = count.ToString();
-                XmlNode nazwa = doc.CreateNode(XmlNodeType.Element, "Nazwa", null);
-                nazwa.InnerText = r.Name;
+                XmlNode name = doc.CreateNode(XmlNodeType.Element, "Nazwa", null);
+                name.InnerText = r.Name;
                 XmlNode url = doc.CreateNode(XmlNodeType.Element, "Url", null);
                 url.InnerText = r.Url.ToString();
 
-                stacja.AppendChild(id);
-                stacja.AppendChild(nazwa);
-                stacja.AppendChild(url);
-                root.AppendChild(stacja);
+                station.AppendChild(id);
+                station.AppendChild(name);
+                station.AppendChild(url);
+                root.AppendChild(station);
 
                 doc.Save(pathRadio);
             }
