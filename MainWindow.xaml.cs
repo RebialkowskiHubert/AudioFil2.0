@@ -32,6 +32,7 @@ namespace AudioFil
                     break;
 
                 case 1:
+                    GridMain.Children.Add(new DownloaderView());
                     break;
             }
         }
