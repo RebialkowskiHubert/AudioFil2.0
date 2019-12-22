@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:AudioFil"
         mc:Ignorable="d"
         Title="AudioFil" Height="600" Width="800"
@@ -10,6 +11,96 @@
         MouseDown="Window_MouseDown">
 
     <Grid Background="Black">
-        <local:RadioView/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+
+        <Grid VerticalAlignment="Top" Grid.Row="0">
+            <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                        Background="{x:Null}"
+                        BorderBrush="{x:Null}"
+                        HorizontalAlignment="Right"
+                        Width="20"
+                        Height="20"
+                        Margin="10, 10"
+                        Click="CloseBtn_Click">
+                <md:PackIcon Kind="Power" VerticalAlignment="Center" 
+                                 Width="20" Height="20">
+                    <md:PackIcon.Foreground>
+                        <LinearGradientBrush EndPoint="0.5, 1"
+                                                 MappingMode="RelativeToBoundingBox" 
+                                                 StartPoint="0.5, 0">
+                            <GradientStop Color="#FFD69016"/>
+                            <GradientStop Color="#FFD6511E" Offset="0.747"/>
+                            <GradientStop Color="#FF9B330D" Offset="0.807"/>
+                        </LinearGradientBrush>
+                    </md:PackIcon.Foreground>
+                </md:PackIcon>
+            </Button>
+
+            <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                        Background="{x:Null}"
+                        BorderBrush="{x:Null}"
+                        HorizontalAlignment="Left"
+                        Width="20"
+                        Height="20"
+                        Margin="10, 0"
+                        Click="MaximizedBtn_Click">
+                <md:PackIcon Kind="Plus" VerticalAlignment="Center" Width="20" Height="20">
+                    <md:PackIcon.Foreground>
+                        <LinearGradientBrush EndPoint="0.5, 1" 
+                                                 MappingMode="RelativeToBoundingBox" 
+                                                 StartPoint="0.5, 0">
+                            <GradientStop Color="#FFD69016"/>
+                            <GradientStop Color="#FFD6511E" Offset="0.747"/>
+                            <GradientStop Color="#FF9B330D" Offset="0.807"/>
+                        </LinearGradientBrush>
+                    </md:PackIcon.Foreground>
+                </md:PackIcon>
+            </Button>
+
+            <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                        Background="{x:Null}"
+                        BorderBrush="{x:Null}"
+                        HorizontalAlignment="Left"
+                        Width="20"
+                        Height="20"
+                        Margin="40, 0"
+                        Click="MinimizedBtn_Click">
+                <md:PackIcon Kind="Minus" VerticalAlignment="Center" 
+                                 Width="20" Height="20">
+                    <md:PackIcon.Foreground>
+                        <LinearGradientBrush EndPoint="0.5, 1" 
+                                                 MappingMode="RelativeToBoundingBox" 
+                                                 StartPoint="0.5, 0">
+                            <GradientStop Color="#FFD69016"/>
+                            <GradientStop Color="#FFD6511E" Offset="0.747"/>
+                            <GradientStop Color="#FF9B330D" Offset="0.807"/>
+                        </LinearGradientBrush>
+                    </md:PackIcon.Foreground>
+                </md:PackIcon>
+            </Button>
+        </Grid>
+
+
+        <Grid Grid.Row="1" x:Name="GridMain">
+            <local:RadioView/>
+        </Grid>
+        
+
+        <Grid Grid.Row="2">
+            <WrapPanel VerticalAlignment="Bottom" Margin="10 0">
+                <Button Uid="0" Width="150" Content="Radio" Height="30"
+                        Background="{x:Null}" BorderBrush="{x:Null}"
+                        Foreground="#FF2196F3" Click="Button_Click"/>
+                <Button Uid="1" Width="150" Content="Pobieranie" Height="30"
+                        Background="{x:Null}" BorderBrush="{x:Null}"
+                        Foreground="#FF2196F3" Click="Button_Click"/>
+            </WrapPanel>
+            <Grid x:Name="GridCursor" Width="150" Height="2" Background="#FF2196F3"
+                  HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10 0"/>
+        </Grid>
     </Grid>
 </Window>

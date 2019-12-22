@@ -33,49 +33,6 @@
                    HorizontalAlignment="Center" Grid.Row="1"/>
 
         <Grid Grid.Row="1">
-            <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
-                        Background="{x:Null}"
-                        BorderBrush="{x:Null}"
-                        HorizontalAlignment="Left"
-                        Width="20"
-                        Height="20"
-                        Margin="20, 0"
-                        Command="{Binding AddCommand}">
-                <md:PackIcon Kind="Plus" VerticalAlignment="Center" Width="20" Height="20">
-                    <md:PackIcon.Foreground>
-                        <LinearGradientBrush EndPoint="0.5, 1" 
-                                                 MappingMode="RelativeToBoundingBox" 
-                                                 StartPoint="0.5, 0">
-                            <GradientStop Color="#FFD69016"/>
-                            <GradientStop Color="#FFD6511E" Offset="0.747"/>
-                            <GradientStop Color="#FF9B330D" Offset="0.807"/>
-                        </LinearGradientBrush>
-                    </md:PackIcon.Foreground>
-                </md:PackIcon>
-            </Button>
-
-            <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
-                        Background="{x:Null}"
-                        BorderBrush="{x:Null}"
-                        HorizontalAlignment="Left"
-                        Width="20"
-                        Height="20"
-                        Margin="50, 0"
-                        Command="{Binding DeleteCommand}">
-                <md:PackIcon Kind="Minus" VerticalAlignment="Center" 
-                                 Width="20" Height="20">
-                    <md:PackIcon.Foreground>
-                        <LinearGradientBrush EndPoint="0.5, 1" 
-                                                 MappingMode="RelativeToBoundingBox" 
-                                                 StartPoint="0.5, 0">
-                            <GradientStop Color="#FFD69016"/>
-                            <GradientStop Color="#FFD6511E" Offset="0.747"/>
-                            <GradientStop Color="#FF9B330D" Offset="0.807"/>
-                        </LinearGradientBrush>
-                    </md:PackIcon.Foreground>
-                </md:PackIcon>
-            </Button>
-
             <TextBlock Text="{Binding Description, Mode=OneWay}" 
                    FontSize="14" HorizontalAlignment="Center"
                    VerticalAlignment="Top" Margin="0"/>
