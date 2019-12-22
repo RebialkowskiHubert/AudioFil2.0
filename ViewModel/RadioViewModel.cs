@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using Tulpep.NotificationWindow;
 
 namespace AudioFil
 {
@@ -52,12 +51,12 @@ namespace AudioFil
 
             App.Current.Dispatcher.InvokeAsync(() =>
             {
-                PopupNotifier popup = new PopupNotifier
+                /*PopupNotifier popup = new PopupNotifier
                 {
                     TitleText = SelectedElement.Name,
                     ContentText = Title
                 };
-                popup.Popup();
+                popup.Popup();*/
             });
         }
 
