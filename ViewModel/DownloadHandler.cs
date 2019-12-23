@@ -1,7 +1,6 @@
 ﻿using AudioFil.Helpers;
 using System;
 using System.IO;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using YoutubeExplode;
@@ -106,13 +105,6 @@ namespace AudioFil
             AudioStreamInfo streamInfo = video.Audio.WithHighestBitrate();
 
             await client.DownloadMediaStreamAsync(streamInfo, path);
-
-            using(var meta = TagLib.File.Create(path))
-            {
-                meta.Tag.Performers = new[] { info.Author };
-                meta.Tag.Title = Song.Name;
-                meta.Save();
-            }
 
             SetProgress(90);
 
