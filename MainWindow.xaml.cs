@@ -29,11 +29,19 @@ namespace AudioFil
                 case 0:
                     GridMain.Children[0].Visibility = Visibility.Visible;
                     GridMain.Children[1].Visibility = Visibility.Collapsed;
+                    GridMain.Children[2].Visibility = Visibility.Collapsed;
                     break;
 
                 case 1:
                     GridMain.Children[0].Visibility = Visibility.Collapsed;
                     GridMain.Children[1].Visibility = Visibility.Visible;
+                    GridMain.Children[2].Visibility = Visibility.Collapsed;
+                    break;
+
+                case 2:
+                    GridMain.Children[0].Visibility = Visibility.Collapsed;
+                    GridMain.Children[1].Visibility = Visibility.Collapsed;
+                    GridMain.Children[2].Visibility = Visibility.Visible;
                     break;
             }
         }

@@ -33,13 +33,7 @@ namespace AudioFil
 
         protected override void OnSelectedElementChange(BaseSource oldValue, BaseSource newValue)
         {
-            if (newValue != null)
-            {
-                Play();
-
-                if(SelectedElement.CurrentSong != null)
-                    Title = SelectedElement.CurrentSong.Artist + " - " + SelectedElement.CurrentSong.Title;
-            }
+            base.OnSelectedElementChange(oldValue, newValue);
 
             DeleteCommand.RaiseCanExecuteChanged();
             UpdateCommand.RaiseCanExecuteChanged();

@@ -136,7 +136,13 @@ namespace AudioFil
 
         protected virtual void OnSelectedElementChange(BaseSource oldValue, BaseSource newValue)
         {
-            
+            if (newValue != null)
+            {
+                Play();
+
+                if (SelectedElement.CurrentSong != null)
+                    Title = SelectedElement.CurrentSong.Artist + " - " + SelectedElement.CurrentSong.Title;
+            }
         }
 
         protected virtual void OnSongChange(object sender, CurrentSongEventArgs e)
@@ -190,7 +196,6 @@ namespace AudioFil
             player.Paused += (o, e) => CheckStatus();
             player.Stopped += (o, e) => CheckStatus();
         }
-
         private void CheckStatus()
         {
             switch (player.State)

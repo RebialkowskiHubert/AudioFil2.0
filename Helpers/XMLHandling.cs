@@ -12,7 +12,6 @@ namespace AudioFil.Helpers
     {
         private XmlDocument doc;
         private readonly string pathRadio = "Playlista.xml";
-        private readonly string pathSongs = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) + "\\" + "Listy odtwarzania\\MUZA.wpl";
 
 
         public ObservableCollection<BaseSource> LoadRadios()
@@ -24,7 +23,7 @@ namespace AudioFil.Helpers
                 if (!File.Exists(pathRadio))
                     CreateRadioPlaylistFile();
 
-                if (!File.Exists(pathSongs))
+                if (!File.Exists(GetPlaylistPath()))
                     CreateSongsPlaylistFile();
 
                 doc.Load(pathRadio);
@@ -42,6 +41,42 @@ namespace AudioFil.Helpers
                 }
 
                 return radios;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return null;
+            }
+        }
+
+        public ObservableCollection<BaseSource> LoadSongs()
+        {
+            ObservableCollection<BaseSource> songs = null;
+            doc = new XmlDocument();
+            try
+            {
+                if (!File.Exists(pathRadio))
+                    CreateRadioPlaylistFile();
+
+                string playlistPath = GetPlaylistPath();
+
+                if (!File.Exists(playlistPath))
+                    CreateSongsPlaylistFile();
+
+                doc.Load(playlistPath);
+                int songsCounter = doc.GetElementsByTagName("media").Count;
+                songs = new ObservableCollection<BaseSource>();
+
+                int i;
+                for (i = 0; i < songsCounter; i++)
+                {
+                    XmlNode song = doc.GetElementsByTagName("media").Item(i);
+                    string nazwa = i.ToString();
+                    Uri url = new Uri(song.Attributes["src"].Value);
+                    songs.Add(new Song(nazwa, url));
+                }
+
+                return songs;
             }
             catch(Exception ex)
             {
@@ -122,14 +157,14 @@ namespace AudioFil.Helpers
 
         public void AddSong(string songPath)
         {
-            XDocument xdoc = XDocument.Load(pathSongs);
+            XDocument xdoc = XDocument.Load(GetPlaylistPath());
 
             xdoc.Root.Element("body").Element("seq").AddFirst
             (
                 new XElement("media", new XAttribute("src", songPath))
             );
 
-            xdoc.Save(pathSongs);
+            xdoc.Save(GetPlaylistPath());
         }
 
         public string GetSongPath()
@@ -149,6 +184,23 @@ namespace AudioFil.Helpers
             }
         }
 
+        private string GetPlaylistPath()
+        {
+            doc = new XmlDocument();
+            try
+            {
+                doc.Load(pathRadio);
+
+                XmlNode root = doc.SelectSingleNode("AudioFil");
+
+                return root.SelectSingleNode("PlaylistPath").InnerText;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         private void CreateRadioPlaylistFile()
         {
             using StreamWriter sw = new StreamWriter(pathRadio);
@@ -160,7 +212,7 @@ namespace AudioFil.Helpers
         private void CreateSongsPlaylistFile()
         {
             Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) + "\\" + "Listy odtwarzania");
-            using StreamWriter sw = new StreamWriter(pathSongs);
+            using StreamWriter sw = new StreamWriter(GetPlaylistPath());
             sw.WriteLine("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<?wpl version=\"1.0\"?>\n<smil>\n<head>\n<meta name=\"Generator\" content=\"Microsoft Windows Media Player -- 12.0.17134.48\"/>\n<meta name=\"ItemCount\" content=\"146\"/>\n<meta name=\"IsFavorite\"/>\n<meta name=\"ContentPartnerListID\"/>\n<meta name=\"ContentPartnerNameType\"/>\n<meta name=\"ContentPartnerName\"/>\n<meta name=\"Subtitle\"/>\n<author/>\n<title>MUZA</title>\n</head>\n<body>\n<seq>\n</seq>\n</body>\n</smil>");
         }
     }
