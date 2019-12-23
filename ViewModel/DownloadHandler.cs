@@ -1,6 +1,5 @@
 ﻿using AudioFil.Helpers;
 using System;
-using System.Configuration;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,6 +13,7 @@ namespace AudioFil
     {
         private readonly YoutubeClient client;
         private readonly DownloaderViewModel downloaderViewModel;
+        private readonly XMLHandling xml;
         private string basePath;
 
         private DownloadMedia song;
@@ -26,7 +26,9 @@ namespace AudioFil
 
         public DownloadHandler(DownloaderViewModel downloaderViewModelInstance)
         {
-            basePath = ConfigurationManager.AppSettings["MusicPath"];
+            xml = new XMLHandling();
+
+            basePath = xml.GetSongPath();
             client = new YoutubeClient();
             downloaderViewModel = downloaderViewModelInstance;
         }
@@ -106,7 +108,6 @@ namespace AudioFil
 
             SetProgress(90);
 
-            XMLHandling xml = new XMLHandling();
             xml.AddSong(path);
 
             SetProgress(100);

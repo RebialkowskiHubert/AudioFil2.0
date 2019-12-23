@@ -8,8 +8,6 @@ namespace AudioFil
     /// </summary>
     public partial class PlayerView : UserControl
     {
-        private Window parent;
-
         public PlayerView()
         {
             InitializeComponent();

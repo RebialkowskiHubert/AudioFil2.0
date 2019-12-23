@@ -86,7 +86,8 @@
 
 
         <Grid Grid.Row="1" x:Name="GridMain">
-            <local:RadioView/>
+            <local:RadioView />
+            <local:DownloaderView Visibility="Collapsed"/>
         </Grid>
         
 

@@ -132,23 +132,36 @@ namespace AudioFil.Helpers
             xdoc.Save(pathSongs);
         }
 
+        public string GetSongPath()
+        {
+            doc = new XmlDocument();
+            try
+            {
+                doc.Load(pathRadio);
+
+                XmlNode root = doc.SelectSingleNode("AudioFil");
+
+                return root.SelectSingleNode("MusicPath").InnerText;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         private void CreateRadioPlaylistFile()
         {
-            using (StreamWriter sw = new StreamWriter(pathRadio))
-            {
-                sw.WriteLine("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
-                sw.WriteLine("<AudioFil>");
-                sw.WriteLine("</AudioFil>");
-            }
+            using StreamWriter sw = new StreamWriter(pathRadio);
+            sw.WriteLine("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+            sw.WriteLine("<AudioFil>");
+            sw.WriteLine("</AudioFil>");
         }
 
         private void CreateSongsPlaylistFile()
         {
             Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) + "\\" + "Listy odtwarzania");
-            using (StreamWriter sw = new StreamWriter(pathSongs))
-            {
-                sw.WriteLine("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<?wpl version=\"1.0\"?>\n<smil>\n<head>\n<meta name=\"Generator\" content=\"Microsoft Windows Media Player -- 12.0.17134.48\"/>\n<meta name=\"ItemCount\" content=\"146\"/>\n<meta name=\"IsFavorite\"/>\n<meta name=\"ContentPartnerListID\"/>\n<meta name=\"ContentPartnerNameType\"/>\n<meta name=\"ContentPartnerName\"/>\n<meta name=\"Subtitle\"/>\n<author/>\n<title>MUZA</title>\n</head>\n<body>\n<seq>\n</seq>\n</body>\n</smil>");
-            }
+            using StreamWriter sw = new StreamWriter(pathSongs);
+            sw.WriteLine("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<?wpl version=\"1.0\"?>\n<smil>\n<head>\n<meta name=\"Generator\" content=\"Microsoft Windows Media Player -- 12.0.17134.48\"/>\n<meta name=\"ItemCount\" content=\"146\"/>\n<meta name=\"IsFavorite\"/>\n<meta name=\"ContentPartnerListID\"/>\n<meta name=\"ContentPartnerNameType\"/>\n<meta name=\"ContentPartnerName\"/>\n<meta name=\"Subtitle\"/>\n<author/>\n<title>MUZA</title>\n</head>\n<body>\n<seq>\n</seq>\n</body>\n</smil>");
         }
     }
 }
