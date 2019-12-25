@@ -87,20 +87,28 @@ namespace AudioFil
             InitPlayer();
         }
 
+
         protected virtual void Play()
         {
-            if (SelectedElement == null)
+            try
             {
-                return;
+                if (SelectedElement == null)
+                {
+                    return;
+                }
+
+                player.SetMedia(SelectedElement.Url);
+                player.Play();
+
+                play = true;
+                PlayButtonContent = "Pause";
+
+                SelectedElement.OnCurrentSongChanged += OnSongChange;
             }
-
-            player.SetMedia(SelectedElement.Url);
-            player.Play();
-
-            play = true;
-            PlayButtonContent = "Pause";
-
-            SelectedElement.OnCurrentSongChanged += OnSongChange;
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         protected virtual void Pause()
@@ -155,6 +163,25 @@ namespace AudioFil
             return SelectedElement != null;
         }
 
+        protected void InitVlcPlayer()
+        {
+            DirectoryInfo libDirectory = new DirectoryInfo(Path.Combine(Directory.GetCurrentDirectory(),
+                                                                        "libvlc",
+                                                                        IntPtr.Size == 4 ? "win-x86" : "win-x64"));
+
+            string[] options = { };
+
+            player = new VlcMediaPlayer(libDirectory);
+
+            player.Buffering += (o, e) => CheckStatus();
+            player.EncounteredError += (o, e) => CheckStatus();
+            player.EndReached += (o, e) => CheckStatus();
+            player.MediaChanged += (o, e) => CheckStatus();
+            player.Opening += (o, e) => CheckStatus();
+            player.Paused += (o, e) => CheckStatus();
+            player.Stopped += (o, e) => CheckStatus();
+        }
+
 
         private void PlayPause()
         {
@@ -163,6 +190,7 @@ namespace AudioFil
             else
                 Play();
         }
+
         private void InitPlayer()
         {
             try
@@ -180,22 +208,9 @@ namespace AudioFil
                 MessageBox.Show(ex.Message);
             }
 
-            DirectoryInfo libDirectory = new DirectoryInfo(Path.Combine(Directory.GetCurrentDirectory(),
-                                                                        "libvlc",
-                                                                        IntPtr.Size == 4 ? "win-x86" : "win-x64"));
-
-            string[] options = { };
-
-            player = new VlcMediaPlayer(libDirectory);
-
-            player.Buffering += (o, e) => CheckStatus();
-            player.EncounteredError += (o, e) => CheckStatus();
-            player.EndReached += (o, e) => CheckStatus();
-            player.MediaChanged += (o, e) => CheckStatus();
-            player.Opening += (o, e) => CheckStatus();
-            player.Paused += (o, e) => CheckStatus();
-            player.Stopped += (o, e) => CheckStatus();
+            InitVlcPlayer();
         }
+
         private void CheckStatus()
         {
             switch (player.State)

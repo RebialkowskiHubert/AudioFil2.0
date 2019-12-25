@@ -43,15 +43,13 @@
                   ItemsSource="{Binding Elements}" SelectedItem="{Binding SelectedElement}">
             <ListView.View>
                 <GridView AllowsColumnReorder="True">
-                    <GridViewColumn Header="Stacja" Width="150"
+                    <GridViewColumn Header="Stacja" Width="40"
                                     DisplayMemberBinding="{Binding Name}"/>
                     <GridViewColumn Header="Utwór" Width="380">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <WrapPanel>
-                                    <TextBlock Text="{Binding Url}"/>
-                                    <TextBlock Text="-"/>
-                                    <TextBlock Text="{Binding CurrentSong.Title}"/>
+                                    <TextBlock Text="{Binding Title}"/>
                                 </WrapPanel>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>

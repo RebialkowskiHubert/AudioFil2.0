@@ -71,7 +71,7 @@ namespace AudioFil.Helpers
                 for (i = 0; i < songsCounter; i++)
                 {
                     XmlNode song = doc.GetElementsByTagName("media").Item(i);
-                    string nazwa = i.ToString();
+                    string nazwa = (i + 1).ToString();
                     Uri url = new Uri(song.Attributes["src"].Value);
                     songs.Add(new Song(nazwa, url));
                 }
