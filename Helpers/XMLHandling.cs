@@ -17,16 +17,10 @@ namespace AudioFil.Helpers
         public ObservableCollection<BaseSource> LoadRadios()
         {
             ObservableCollection<BaseSource> radios;
-            doc = new XmlDocument();
             try
             {
-                if (!File.Exists(pathRadio))
-                    CreateRadioPlaylistFile();
+                LoadDocument(pathRadio);
 
-                if (!File.Exists(GetPlaylistPath()))
-                    CreateSongsPlaylistFile();
-
-                doc.Load(pathRadio);
                 int stations = doc.GetElementsByTagName("Stacja").Count;
                 radios = new ObservableCollection<BaseSource>();
 
@@ -52,18 +46,10 @@ namespace AudioFil.Helpers
         public ObservableCollection<BaseSource> LoadSongs()
         {
             ObservableCollection<BaseSource> songs = null;
-            doc = new XmlDocument();
             try
             {
-                if (!File.Exists(pathRadio))
-                    CreateRadioPlaylistFile();
+                LoadDocument(GetPlaylistPath());
 
-                string playlistPath = GetPlaylistPath();
-
-                if (!File.Exists(playlistPath))
-                    CreateSongsPlaylistFile();
-
-                doc.Load(playlistPath);
                 int songsCounter = doc.GetElementsByTagName("media").Count;
                 songs = new ObservableCollection<BaseSource>();
 
@@ -82,6 +68,43 @@ namespace AudioFil.Helpers
             {
                 MessageBox.Show(ex.Message);
                 return null;
+            }
+        }
+
+        public Settings LoadSettings()
+        {
+            doc = new XmlDocument();
+            try
+            {
+                Settings settings = new Settings();
+
+                doc.Load(pathRadio);
+
+                settings.MusicPath = doc.GetElementsByTagName("MusicPath")[0].InnerText;
+                settings.PlaylistPath = doc.GetElementsByTagName("PlaylistPath")[0].InnerText;
+
+                return settings;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return null;
+            }
+        }
+
+        public void SaveSettings(Settings settings)
+        {
+            try
+            {
+                LoadDocument(pathRadio);
+
+                doc.GetElementsByTagName("MusicPath")[0].InnerText = settings.MusicPath;
+                doc.GetElementsByTagName("PlaylistPath")[0].InnerText = settings.PlaylistPath;
+                doc.Save(pathRadio);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -184,6 +207,25 @@ namespace AudioFil.Helpers
             }
         }
 
+        private void LoadDocument(string path)
+        {
+            doc = new XmlDocument();
+            try
+            {
+                if (!File.Exists(pathRadio))
+                    CreateRadioPlaylistFile();
+
+                if (!File.Exists(GetPlaylistPath()))
+                    CreateSongsPlaylistFile();
+
+                doc.Load(path);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
         private string GetPlaylistPath()
         {
             doc = new XmlDocument();
@@ -206,6 +248,8 @@ namespace AudioFil.Helpers
             using StreamWriter sw = new StreamWriter(pathRadio);
             sw.WriteLine("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
             sw.WriteLine("<AudioFil>");
+            sw.WriteLine($"<MusicPath>{Environment.GetFolderPath(Environment.SpecialFolder.MyMusic)}</MusicPath>");
+            sw.WriteLine($@"<PlaylistPath>{Environment.GetFolderPath(Environment.SpecialFolder.MyMusic)}\Listy odtwarzania\MUZA.wpl</PlaylistPath>");
             sw.WriteLine("</AudioFil>");
         }
 

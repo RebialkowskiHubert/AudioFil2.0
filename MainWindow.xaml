@@ -89,6 +89,7 @@
             <local:RadioView />
             <local:DownloaderView Visibility="Collapsed"/>
             <local:SongsView Visibility="Collapsed"/>
+            <local:SettingsView Visibility="Collapsed"/>
         </Grid>
         
 
@@ -101,6 +102,9 @@
                         Background="{x:Null}" BorderBrush="{x:Null}"
                         Foreground="#FF2196F3" Click="Button_Click"/>
                 <Button Uid="2" Width="150" Content="Odtwarzacz" Height="30"
+                        Background="{x:Null}" BorderBrush="{x:Null}"
+                        Foreground="#FF2196F3" Click="Button_Click"/>
+                <Button Uid="3" Width="150" Content="Ustawienia" Height="30"
                         Background="{x:Null}" BorderBrush="{x:Null}"
                         Foreground="#FF2196F3" Click="Button_Click"/>
             </WrapPanel>
