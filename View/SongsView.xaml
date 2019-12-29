@@ -20,7 +20,7 @@
         <WrapPanel Grid.Row="1">
             <Slider Margin="10 2 2 2"
                     Height="20"
-                    Width="500"
+                    Width="490"
                     Background="#77777777"
                     Style="{StaticResource MaterialDesignDiscreteSlider}"
                     Thumb.DragStarted="Slider_DragStarted"
