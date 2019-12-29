@@ -97,7 +97,6 @@ namespace AudioFil
                     return;
                 }
 
-                player.SetMedia(SelectedElement.Url);
                 player.Play();
 
                 play = true;
@@ -146,6 +145,7 @@ namespace AudioFil
         {
             if (newValue != null)
             {
+                player.SetMedia(SelectedElement.Url);
                 Play();
 
                 if (SelectedElement.CurrentSong != null)

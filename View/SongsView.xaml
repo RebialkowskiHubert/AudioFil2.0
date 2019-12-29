@@ -11,14 +11,31 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" x:Name="GridPlayer"></Grid>
 
+        <WrapPanel Grid.Row="1">
+            <Slider Margin="10 2 2 2"
+                    Height="20"
+                    Width="500"
+                    Background="#77777777"
+                    Style="{StaticResource MaterialDesignDiscreteSlider}"
+                    Thumb.DragStarted="Slider_DragStarted"
+                    Thumb.DragCompleted="Slider_DragCompleted"
+                    ValueChanged="Slider_ValueChanged"
+                    Minimum="0"
+                    Maximum="1"
+                    Value="{Binding CurrentSongTime, Mode=TwoWay}"/>
+
+            <TextBlock Text="{Binding CurrentSongTimeString}" Margin="10 0 10 0"/>
+        </WrapPanel>
+
         <TextBlock FontSize="14" 
                    Margin="5 -325 5 300" HorizontalAlignment="Center"
-                   VerticalAlignment="Bottom" Grid.Row="1">
+                   VerticalAlignment="Bottom" Grid.Row="2">
             <TextBlock.Text>
                 <MultiBinding StringFormat="{}{0} - {1}">
                     <Binding Path="SelectedElement.CurrentSong.Artist"/>
@@ -28,17 +45,17 @@
         </TextBlock>
 
         <TextBlock Text="{Binding SelectedElement.Name, Mode=OneWay}" 
-                   FontSize="14" Margin="5 -90 5 0" 
-                   HorizontalAlignment="Center" Grid.Row="1"/>
+                   FontSize="14" Margin="5 -110 5 0" 
+                   HorizontalAlignment="Center" Grid.Row="2"/>
 
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="2">
             <TextBlock Text="{Binding Description, Mode=OneWay}" 
                    FontSize="14" HorizontalAlignment="Center"
                    VerticalAlignment="Top" Margin="0"/>
         </Grid>
 
-        <ListView Margin="5 -25 5 5" Foreground="LightSteelBlue"
-                  x:Name="lstItems" Grid.Row="2"
+        <ListView Margin="5 -41 5 5" Foreground="LightSteelBlue"
+                  x:Name="lstItems" Grid.Row="3"
                   Style="{StaticResource MaterialDesignListView}"
                   ItemsSource="{Binding Elements}" SelectedItem="{Binding SelectedElement}">
             <ListView.View>
