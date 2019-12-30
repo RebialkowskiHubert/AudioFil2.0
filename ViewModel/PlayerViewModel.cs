@@ -3,6 +3,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
+using System.Windows.Input;
 using Vlc.DotNet.Core;
 using Vlc.DotNet.Core.Interops.Signatures;
 
@@ -163,7 +164,25 @@ namespace AudioFil
             return SelectedElement != null;
         }
 
-        protected void InitVlcPlayer()
+        protected virtual void OnKeyPressed(object sender, KeyPressedArgs e)
+        {
+            switch (e.KeyPressed)
+            {
+                case Key.MediaPlayPause:
+                    PlayPause();
+                    break;
+
+                case Key.MediaNextTrack:
+                    Next();
+                    break;
+
+                case Key.MediaPreviousTrack:
+                    Previous();
+                    break;
+            }
+        }
+
+        protected virtual void InitVlcPlayer()
         {
             DirectoryInfo libDirectory = new DirectoryInfo(Path.Combine(Directory.GetCurrentDirectory(),
                                                                         "libvlc",
@@ -199,7 +218,7 @@ namespace AudioFil
 
                 keyListener = new LowLevelKeyboardListener();
 
-                App.Current.Exit += (ss, ee) => {
+                Application.Current.Exit += (ss, ee) => {
                     keyListener.UnHookKeyboard();
                 };
             }

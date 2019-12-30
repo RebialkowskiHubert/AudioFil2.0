@@ -1,7 +1,6 @@
 ﻿using AudioFil.Helpers;
 using System.Linq;
 using System.Windows;
-using System.Windows.Input;
 
 namespace AudioFil
 {
@@ -106,29 +105,6 @@ namespace AudioFil
             {
                 xml.DeleteRadio((Radio)SelectedElement);
                 Elements.Remove(Elements.Where(r => r == SelectedElement).FirstOrDefault());
-            }
-        }
-
-        private void OnKeyPressed(object sender, KeyPressedArgs e)
-        {
-            switch (e.KeyPressed)
-            {
-                case Key.MediaPlayPause:
-                    if (play)
-                        Stop();
-                    else
-                        Play();
-
-                    play = !play;
-                    break;
-
-                case Key.MediaNextTrack:
-                    Next();
-                    break;
-
-                case Key.MediaPreviousTrack:
-                    Previous();
-                    break;
             }
         }
     }

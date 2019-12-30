@@ -23,37 +23,15 @@ namespace AudioFil
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             int index = int.Parse(((Button)e.Source).Uid);
+            int i;
             GridCursor.Margin = new Thickness(10 + (150 * index), 0, 0, 0);
 
-            switch (index)
+            for(i = 0; i < GridMain.Children.Count; i++)
             {
-                case 0:
-                    GridMain.Children[0].Visibility = Visibility.Visible;
-                    GridMain.Children[1].Visibility = Visibility.Collapsed;
-                    GridMain.Children[2].Visibility = Visibility.Collapsed;
-                    GridMain.Children[3].Visibility = Visibility.Collapsed;
-                    break;
-
-                case 1:
-                    GridMain.Children[0].Visibility = Visibility.Collapsed;
-                    GridMain.Children[1].Visibility = Visibility.Visible;
-                    GridMain.Children[2].Visibility = Visibility.Collapsed;
-                    GridMain.Children[3].Visibility = Visibility.Collapsed;
-                    break;
-
-                case 2:
-                    GridMain.Children[0].Visibility = Visibility.Collapsed;
-                    GridMain.Children[1].Visibility = Visibility.Collapsed;
-                    GridMain.Children[2].Visibility = Visibility.Visible;
-                    GridMain.Children[3].Visibility = Visibility.Collapsed;
-                    break;
-
-                case 3:
-                    GridMain.Children[0].Visibility = Visibility.Collapsed;
-                    GridMain.Children[1].Visibility = Visibility.Collapsed;
-                    GridMain.Children[2].Visibility = Visibility.Collapsed;
-                    GridMain.Children[3].Visibility = Visibility.Visible;
-                    break;
+                if (i == index)
+                    GridMain.Children[i].Visibility = Visibility.Visible;
+                else
+                    GridMain.Children[i].Visibility = Visibility.Collapsed;
             }
         }
 
