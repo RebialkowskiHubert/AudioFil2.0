@@ -22,7 +22,6 @@
                     Height="20"
                     Width="490"
                     Background="#77777777"
-                    Style="{StaticResource MaterialDesignDiscreteSlider}"
                     Thumb.DragStarted="Slider_DragStarted"
                     Thumb.DragCompleted="Slider_DragCompleted"
                     ValueChanged="Slider_ValueChanged"
@@ -54,7 +53,7 @@
                    VerticalAlignment="Top" Margin="0"/>
         </Grid>
 
-        <ListView Margin="5 -41 5 5" Foreground="LightSteelBlue"
+        <ListView Margin="5 -25 5 5" Foreground="LightSteelBlue"
                   x:Name="lstItems" Grid.Row="3"
                   Style="{StaticResource MaterialDesignListView}"
                   ItemsSource="{Binding Elements}" SelectedItem="{Binding SelectedElement}">
