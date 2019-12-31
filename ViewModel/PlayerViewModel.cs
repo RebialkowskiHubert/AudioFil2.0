@@ -137,9 +137,9 @@ namespace AudioFil
             int index = Elements.IndexOf(SelectedElement) - 1;
 
             if (index >= 0)
-                SelectedElement = (Radio)Elements[index];
+                SelectedElement = Elements[index];
             else
-                SelectedElement = (Radio)Elements[Elements.Count - 1];
+                SelectedElement = Elements[Elements.Count - 1];
         }
 
         protected virtual void OnSelectedElementChange(BaseSource oldValue, BaseSource newValue)
